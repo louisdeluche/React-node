@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Redirect } from 'react-router-dom';
 
 class PostAdd extends Component {
     
@@ -29,7 +28,7 @@ class PostAdd extends Component {
             },
             body: JSON.stringify({
                 title: this.state.article.title,
-                user_id: "5d308785e27c2e2a6c609d13",
+                user_id: localStorage.getItem("id"),
                 content: this.state.article.content,
             })
         })
@@ -38,7 +37,7 @@ class PostAdd extends Component {
     };
 
     inputValueChanged = e => {
-
+console.log(localStorage.getItem("id"));
         const { name, value } = e.target;
         this.setState(prevState => ({
             article: {
@@ -55,11 +54,24 @@ class PostAdd extends Component {
 
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to='/accueil' />;
+            window.location = "http://localhost:3000/accueil";
         }
         return (
+
+            <section className="ftco-section contact-section">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div className="container">
+                    <div className="row d-flex mb-5 contact-info">
+                        <div className="col-md-12 mb-4">
+
+
+
             <div className="col-md-6 col-md-offset-3">
-                <h2>Connexion</h2>
+                <h2>Ajout article</h2>
                 <form name="form" method="POST" onSubmit={this.formSubmitted}>
                     <div className="form-group">
                         <label>Titre</label>
@@ -71,13 +83,17 @@ class PostAdd extends Component {
                     </div>
                     <div className="form-group">
                         {/*<input name="user_id" onChange={this.inputValueChanged} type="hidden" className="form-control" />*/}
-                        <input name="user_id" value="5d308785e27c2e2a6c609d13" type="hidden" className="form-control" />
+                        <input name="user_id"  type="hidden" className="form-control" />
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="btn btn-primary">Connexion</button>
+                        <button type="submit" className="btn btn-primary">Ajouter</button>
                     </div>
                 </form>
             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         );
     }
 

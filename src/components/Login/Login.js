@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
     state = {
@@ -15,7 +14,7 @@ class Login extends React.Component {
         // this.setState({isLoadingDisplayed: true});
         e.preventDefault();
 
-        fetch('http://localhost:3002/api/v1/users/authenticate', {
+        fetch('http://localhost:3001/users/authenticate', {
             method: 'POST',
             headers: {
                 'Content-Type': "application/json"
@@ -25,11 +24,13 @@ class Login extends React.Component {
                 password: this.state.login.password,
             })
         })
+
             .then(res =>{
                 res.json().then(function(defs){
-                    localStorage.setItem("email",defs.email)
-                    localStorage.setItem("name",defs.name)
-                    localStorage.setItem("id",defs.id)
+
+                    localStorage.setItem("email",defs.data.user.email)
+                    localStorage.setItem("name",defs.data.user.name)
+                    localStorage.setItem("id",defs.data.user._id)
 
                 });
             }  )
@@ -41,6 +42,7 @@ class Login extends React.Component {
 
     inputValueChanged = e => {
 
+        console.log(this.state);
         const { name, value } = e.target;
         this.setState(prevState => ({
             login: {
@@ -54,9 +56,14 @@ class Login extends React.Component {
 
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to='/accueil' />;
+            window.location = "http://localhost:3000/accueil";
         }
         return (
+            <section className="ftco-section contact-section">
+
+                <div className="container">
+                    <div className="row d-flex mb-5 contact-info">
+                        <div className="col-md-12 mb-4">
             <div className="col-md-6 col-md-offset-3">
                 <h2>Connexion</h2>
                 <form name="form" method="POST" onSubmit={this.formSubmitted}>
@@ -74,6 +81,10 @@ class Login extends React.Component {
                     </div>
                 </form>
             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         );
     }
 

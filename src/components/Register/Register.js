@@ -1,10 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Redirect } from 'react-router-dom';
 
 class Register extends React.Component {
     state = {
         regiser: {
             email: {},
+            name: {},
             password: {}
         },
         redirect: false
@@ -22,6 +22,7 @@ class Register extends React.Component {
             },
             body: JSON.stringify({
                 email: this.state.regiser.email,
+                name: this.state.regiser.name,
                 password: this.state.regiser.password,
             })
         })
@@ -31,6 +32,7 @@ class Register extends React.Component {
 
     inputValueChanged = e => {
 
+        console.log(this.state);
         const { name, value } = e.target;
         this.setState(prevState => ({
             regiser: {
@@ -44,16 +46,25 @@ class Register extends React.Component {
 
         const { redirect } = this.state;
         if (redirect) {
-            console.log("aze");
-            return <Redirect to='/accueil' />;
+            window.location = "http://localhost:3000/connexion";
         }
         return (
+
+            <section className="ftco-section contact-section">
+
+                <div className="container">
+                    <div className="row d-flex mb-5 contact-info">
+                        <div className="col-md-12 mb-4">
             <div className="col-md-6 col-md-offset-3">
                 <h2>Inscription</h2>
                 <form name="form" method="POST" onSubmit={this.formSubmitted}>
                     <div className="form-group">
                         <label>Email</label>
                         <input name="email" onChange={this.inputValueChanged} type="text" className="form-control" />
+                    </div>
+                    <div className="form-group">
+                        <label>Pseudo</label>
+                        <input name="name" onChange={this.inputValueChanged} type="text" className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Mot de Passe</label>
@@ -70,6 +81,11 @@ class Register extends React.Component {
                     </div>
                 </form>
             </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
         );
     }
 

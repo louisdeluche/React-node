@@ -16,49 +16,32 @@ import Login from './components//Login/Login';
 import Register from './components//Register/Register';
 
 class App extends Component {
-
-    UserGreeting() {
-        return <div>{localStorage.getItem('email')} {localStorage.getItem('name')} </div>;
-    }
-
-    GuestGreeting() {
-        return <h1>Please sign up.</h1>;
-    }
-    
-    Greeting() {
-        if (localStorage.getItem('email') !== undefined) {
-            return this.UserGreeting();
-        }
-        return this.GuestGreeting();
-    }
-    
     render() {
         return (
             <Router>
-                {this.Greeting()}
                 <Switch>
                     <Route exact path="/">
-                        <Redirect to="/connexion" />
+                        <Redirect to="/connexion"/>
                     </Route>
                     <Route path="/utilisateur" render={() =>
                         (<UserProvider>
                             <div className="App">
-                                <UserProfile />
+                                <UserProfile/>
                             </div>
                         </UserProvider>)
-                    } />
+                    }/>
                     <Route path="/accueil" render={() =>
-                        (<PostsTrending />)
-                    } />
+                        (<PostsTrending/>)
+                    }/>
                     <Route path="/add/post" render={() =>
-                        (<PostsAdd />)
-                    } />
+                        (<PostsAdd/>)
+                    }/>
                     <Route path="/connexion" render={() =>
-                        (<Login />)
-                    } />
+                        (<Login/>)
+                    }/>
                     <Route path="/inscription" render={() =>
-                        (<Register />)
-                    } />
+                        (<Register/>)
+                    }/>
                 </Switch>
             </Router>
         );
